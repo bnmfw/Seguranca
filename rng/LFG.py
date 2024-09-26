@@ -43,3 +43,10 @@ class LFG:
         self.state_queue.pop(0)
         self.state_queue.append(value)
         return value
+
+
+if __name__ == "__main__":
+    from Report import relatorio
+
+    bits = [40, 56, 80, 128, 168, 224, 256, 512, 1024, 2048, 4096]
+    relatorio(LFG, bits)

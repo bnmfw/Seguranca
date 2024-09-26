@@ -61,3 +61,27 @@ class Miller:
             if not self.test(value):
                 return False
         return True
+
+
+if __name__ == "__main__":
+    from .primes import primes_until
+    from rng.Xorshift import Xorshift
+
+    max_value = 10**4
+    m = Miller(Xorshift, max_value)
+    tests = 1
+    is_prime = lambda v: m.bulk_test(v, tests)
+    primos = set(primes_until(max_value))
+    primes = [i for i in range(2, max_value) if is_prime(i)]
+
+    print(f"Calculei que estes sao todos os primos ate {max_value}")
+    for i, v in enumerate(primes):
+        print(v, end="\t" if (i + 1) % 17 else "\n")
+    print()
+
+    print(f"\nEstes sao numeros que erroneamente assumi primos:")
+    for i, v in enumerate(set(primes) - primos):
+        print(v, end="\t" if (i + 1) % 17 else "\n")
+    print()
+
+    print(f"Tentativas de checagem de primaridade para cada primo = {tests}")

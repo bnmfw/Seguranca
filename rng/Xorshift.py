@@ -32,3 +32,10 @@ class Xorshift:
         self.state ^= self.state << 5
         self.state %= self.mod
         return self.state
+
+
+if __name__ == "__main__":
+    from Report import relatorio
+
+    bits = [40, 56, 80, 128, 168, 224, 256, 512, 1024, 2048, 4096]
+    relatorio(Xorshift, bits)
