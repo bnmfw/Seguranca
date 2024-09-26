@@ -22,23 +22,27 @@ class Randint:
         low: int = 0 if value2 is None else value1
         high: int = value1 if value2 is None else value2
 
+        # Gera um rand em [0 : rand_max]
         rand: int = self.gen()
 
-        # rand eh mapeado para um valor [0 - 1]
-        rand /= self.gen.mod
-
-        # rand eh mapeado para um valor [0 - (high-low)]
+        # Mapeia rand para [0 : rand_max * (high - low)]
         rand *= high - low
 
-        # rand eh arrendado para um valor inteiro
-        # sim int(round()) eh diferente de so int()
-        # experimenta tirar e roda o arquivo pra ver o erro
-        rand = int(round(rand))
+        rand_mapped = rand
 
-        # rand eh deslocado para a distribuicao original
-        rand += low
+        # Mapeia rand para [0 : (high - low)]
+        rand_mapped //= self.gen.mod
 
-        return rand
+        # Faz com que o truncamento anterior seja um arredondamento case necessario
+        if abs((rand_mapped + 1) * self.gen.mod - rand) < abs(
+            rand_mapped * self.gen.mod - rand
+        ):
+            rand_mapped += 1
+
+        # Mapeia rand para [low : high]
+        rand_mapped += low
+
+        return rand_mapped
 
 
 if __name__ == "__main__":

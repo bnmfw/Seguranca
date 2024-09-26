@@ -4,8 +4,8 @@ from utils.modexp import modexp
 report = False
 
 
-class Miller:
-    name = "Miller Rabin"
+class Fermat:
+    name = "Fermat"
 
     def __init__(self, generator, max_number: int) -> None:
         """
@@ -27,27 +27,8 @@ class Miller:
             bool: se o valor eh provavelmente primo
         """
 
-        m = value - 1
-        k = 0
-        while not m % 2:
-            k += 1
-            m //= 2
-        if report:
-            print(f"{value} = 2^{k}*{m}+1")
-
         a = self.randint(1, value - 1)
-
-        if report:
-            print(f"{a=}\t{m=}\t{value=}\t{modexp(a, m, value)=}")
-        if modexp(a, m, value) == 1:
-            return True
-
-        for i in range(k):
-            if report:
-                print(f"\t{i=}\t{2**i*m=}\t{modexp(a, 2 ** i * m, value)=}")
-            if modexp(a, 2**i * m, value) == value - 1:
-                return True
-        return False
+        return modexp(a, value - 1, 1) != 1
 
     def bulk_test(self, value: int, runs: int) -> bool:
         """
