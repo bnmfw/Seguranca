@@ -1,8 +1,9 @@
 from statistics import stdev, mean
 from math import sqrt
 from time import process_time
-from LFG import LFG
-from Xorshift import Xorshift
+from .LFG import LFG
+from .Xorshift import Xorshift
+
 
 def relatorio(generator, bits: list[int], samples: int = 10**6):
     print(f"{'='*70}")
@@ -14,24 +15,31 @@ def relatorio(generator, bits: list[int], samples: int = 10**6):
         start_time = process_time()
         data = [rand() for _ in range(samples)]
         end_time = process_time()
-        
-        print(f"\n[BITS={bit}]") 
-        print(f"Tempo={end_time-start_time:.2f} segundos"
-                f"\tRepeticoes={len(data)-len(set(data))}")
 
-        if bit > 512: 
+        print(f"\n[BITS={bit}]")
+        print(
+            f"Tempo={end_time-start_time:.2f} segundos"
+            f"\tRepeticoes={len(data)-len(set(data))}"
+        )
+
+        if bit > 512:
             print("Numeros grandes de mais para coletar estatisticas")
             continue
         media = mean(data)
         desvio = stdev(data)
-        print(f"[MEDIA] ideal={rand.mod/2:.4e}\t"
-                f"gerada={media:.4e}\t"
-                f"erro={100*abs(rand.mod/2-media)/(rand.mod/2):.2f}%")
+        print(
+            f"[MEDIA] ideal={rand.mod/2:.4e}\t"
+            f"gerada={media:.4e}\t"
+            f"erro={100*abs(rand.mod/2-media)/(rand.mod/2):.2f}%"
+        )
 
-        print(f"[STDEV] ideal={rand.mod/sqrt(12):.4e}\t"
-                f"gerada={desvio:.4e}\t"
-                f"erro={100*abs(rand.mod/sqrt(12)-desvio)/(rand.mod/sqrt(12)):.2f}%")
-        
+        print(
+            f"[STDEV] ideal={rand.mod/sqrt(12):.4e}\t"
+            f"gerada={desvio:.4e}\t"
+            f"erro={100*abs(rand.mod/sqrt(12)-desvio)/(rand.mod/sqrt(12)):.2f}%"
+        )
+
+
 if __name__ == "__main__":
     bits = [40, 56, 80, 128, 168, 224, 256, 512, 1024, 2048, 4096]
     relatorio(Xorshift, bits)

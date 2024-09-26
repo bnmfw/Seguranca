@@ -1,20 +1,23 @@
 """
 Este modulo contem a implementacao do Xorshift
 """
+
+
 class Xorshift:
-    
+
     name = "Xorshift"
 
-    def __init__(self, state: int = 2**31-1, mod: int = 2**31-1):
+    def __init__(self, state: int = 2**31 - 1, mod: int = None):
         """
         Inicia o gerador de numeros aleatorios
 
         Args:
             state (int): Valor inicial. 2**31-1 eh um primo bem legal.
+            mod (int): Valor do mod, duh.
         """
         self.state = state
-        self.mod = mod
-    
+        self.mod = 2**31 - 1 if mod is None else mod
+
     def __call__(self) -> int:
         """
         Gera um numero aleatorio

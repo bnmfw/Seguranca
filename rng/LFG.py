@@ -1,11 +1,19 @@
 """
 Este modulo contem a implementacao do Lagged Fibonacci Generator
 """
+
+
 class LFG:
 
     name = "Lagged Fibonacci Generator"
-    
-    def __init__(self, small: int = 24, big: int = 55, state_queue: list[int] = None, mod: int = 2**31-1) -> None:
+
+    def __init__(
+        self,
+        small: int = 24,
+        big: int = 55,
+        state_queue: list[int] = None,
+        mod: int = None,
+    ) -> None:
         """
         Inicia o gerador de numeros aleatorios
 
@@ -18,9 +26,9 @@ class LFG:
         assert big > small, f"l={big} deve ser maior que k={small}"
         self.small = small
         self.big = big
-        self.mod = mod
+        self.mod = 2**31 - 1 if mod is None else mod
         if state_queue is None:
-            state_queue = [((i+3)**i - i*13)%mod for i in range(big)]
+            state_queue = [((i + 3) ** i - i * 13) % mod for i in range(big)]
         self.state_queue = state_queue
 
     def __call__(self) -> int:
