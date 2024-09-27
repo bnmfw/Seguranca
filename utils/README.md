@@ -23,7 +23,7 @@ Desta forma a função como um todo tem complexidade **O(n)** até 64 bits e **O
 ### Simbolo de Jacobi
 Eu não entendi como isso funciona mas eu fiz igualzinho o da [wikipédia](https://en.wikipedia.org/wiki/Jacobi_symbol#Implementation_in_C++) e deu certo 😁!
 
-Acho que você ja pegou a ideia da analise de complexidade com o último exemplo.
+Esse bloco tem complexidade muito similar ao anterior.
 
 ```
 while not a % 2:
