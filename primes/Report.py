@@ -1,7 +1,7 @@
 from .Miller import Miller
 from .Fermat import Fermat
-from rng.LFG import LFG
 from rng.Xorshift import Xorshift
+from .Solovay import Solovay
 from time import process_time
 
 
@@ -20,6 +20,8 @@ def relatorio(checker1, checker2, engine, bits: list[int], samples: int = 10**6)
         start_time = process_time()
         for _ in range(samples):
             v = rng()
+            if not v % 2:
+                v += 1
             c1v = c1.test(v)
             c2v = c2.test(v)
             if c1v != c2v:
@@ -44,4 +46,4 @@ def relatorio(checker1, checker2, engine, bits: list[int], samples: int = 10**6)
 
 if __name__ == "__main__":
     bits = [40, 56, 80, 128, 168, 224, 256, 512, 1024, 2048, 4096]
-    relatorio(Miller, Fermat, Xorshift, bits, 100)
+    relatorio(Miller, Solovay, Xorshift, bits, 100)
