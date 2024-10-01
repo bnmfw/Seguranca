@@ -1,8 +1,8 @@
 from statistics import stdev, mean
 from math import sqrt
-from time import process_time
 from .LFG import LFG
 from .Xorshift import Xorshift
+from utils.Time import Crono
 
 
 def relatorio(generator, bits: list[int], samples: int = 10**6):
@@ -12,13 +12,12 @@ def relatorio(generator, bits: list[int], samples: int = 10**6):
 
     for bit in bits:
         rand = generator(mod=2**bit)
-        start_time = process_time()
-        data = [rand() for _ in range(samples)]
-        end_time = process_time()
+        with Crono() as cronometer:
+            data = [rand() for _ in range(samples)]
 
         print(f"\n[BITS={bit}]")
         print(
-            f"Tempo={end_time-start_time:.2f} segundos"
+            f"Tempo={cronometer.total:.2f} segundos"
             f"\tRepeticoes={len(data)-len(set(data))}"
         )
 

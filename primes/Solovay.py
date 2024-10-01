@@ -2,7 +2,7 @@ from utils.modexp import modexp
 from utils.jacobi import jacobi
 from .primes import primes_until
 from .PrimeTester import PrimeTester
-from math import sqrt
+from rng.RNG import RNG
 
 report = False
 
@@ -10,8 +10,8 @@ report = False
 class Solovay(PrimeTester):
     name = "Solovay"
 
-    def __init__(self, generator, max_number: int) -> None:
-        super().__init__(generator=generator, max_number=max_number)
+    def __init__(self, generator: RNG, max_number: int, seed=None) -> None:
+        super().__init__(generator=generator, max_number=max_number, seed=seed)
 
     def test(self, value: int) -> bool:
         if value == 2:
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     max_value = 10**4
     m = Solovay(Xorshift, max_value)
-    tests = 1
+    tests = 2
     is_prime = lambda v: m.bulk_test(v, tests)
     primos = set(primes_until(max_value))
     primes = [i for i in range(2, max_value) if is_prime(i)]

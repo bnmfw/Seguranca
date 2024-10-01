@@ -1,47 +1,55 @@
 from .Miller import Miller
-from .Fermat import Fermat
-from rng.Xorshift import Xorshift
 from .Solovay import Solovay
-from time import process_time
+from .PrimeTester import PrimeTester
+from rng.Xorshift import Xorshift
+from rng.RNG import RNG
+from rng.randint import Randint
+from utils.Time import Crono
 
 
-def relatorio(checker1, checker2, engine, bits: list[int], samples: int = 10**6):
+def relatorio(
+    checker1: PrimeTester,
+    checker2: PrimeTester,
+    engine: RNG,
+    bits: list[int],
+    tests: int = 1,
+    samples: int = 10**6,
+):
     print(f"{'='*70}")
     print(f"\nRelatorio de Qualidade do {checker1.name} vs {checker2.name}:")
     print(f"\nAmostras={samples:.0e}")
 
     for bit in bits:
         print(f"\n[BITS={bit}]")
-        disagree = []
 
-        c1 = checker1(engine, 2**bit)
-        c2 = checker2(engine, 2**bit)
-        rng = engine(mod=2**bit)
-        start_time = process_time()
-        for _ in range(samples):
-            v = rng()
-            if not v % 2:
-                v += 1
-            c1v = c1.test(v)
-            c2v = c2.test(v)
-            if c1v != c2v:
-                disagree.append((c1v, v))
-        end_time = process_time()
+        seed: int = 2**bit - bit * 400  # Tanto faz
+        c1: PrimeTester = checker1(engine, 2**bit, seed=seed)
+        c2: PrimeTester = checker2(engine, 2**bit, seed=seed)
+        rng: Randint = Randint(engine, max_number=2**bit, seed=seed)
 
-        print(f"Tempo={end_time-start_time:.2f} segundos")
+        disagree: list = []
 
-        if not disagree:
-            print("Ambos Testes concordam sobre a primalidade de todos so numeros!")
-            continue
+        # Primos grandes so podem ser 6k-1 ou 6k+1, nao vale a pena ir de 2 em 2, eu vou de 6 em 6 e olho o antecessor e sucessor
 
-        print("Numero que os testadores discoradam:")
-        print(checker1.name.ljust(15), checker2.name.ljust(15), "Numero")
-        for c1, n in disagree:
-            print(
-                ("PRIME" if c1 else "NOT PRIME").ljust(15),
-                ("NOT PRIME" if c1 else "PRIME").ljust(15),
-                n,
-            )
+        with Crono() as cronometer:
+            rand: int = rng(2 ** (bit - 1), 2**bit)
+
+            # Rand vira um abaixo de multiplo de 6
+            rand -= rand % 6
+            rand -= 1
+            is_prime_1, is_prime_2 = False, False
+
+            under = True
+            while not (is_prime_2):
+
+                # is_prime_1 = c1.bulk_test(rand, tests)
+                is_prime_2 = c2.bulk_test(rand, tests)
+
+                rand += 2 if under else 4
+
+                under = not under
+
+        print(f"Tempo={cronometer.total:.2f} segundos" f"\t Primo={rand}")
 
 
 if __name__ == "__main__":

@@ -5,8 +5,10 @@ class Randint:
     nao mantem a distribuicao uniforme!
     """
 
-    def __init__(self, generator, max_number: int = None) -> None:
-        self.gen = generator(mod=max_number)
+    def __init__(self, generator, max_number: int = None, seed=None) -> None:
+        self.gen = generator(mod=max_number, seed=seed)
+        for _ in range(10):
+            self.gen()
 
     def __call__(self, value1: int, value2: int = None) -> int:
         """

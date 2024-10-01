@@ -7,16 +7,16 @@ class Xorshift:
 
     name = "Xorshift"
 
-    def __init__(self, state: int = 2**31 - 1, mod: int = None):
+    def __init__(self, seed: int = None, mod: int = None):
         """
         Inicia o gerador de numeros aleatorios
 
         Args:
-            state (int): Valor inicial. 2**31-1 eh um primo bem legal.
+            state (int): Valor inicial.
             mod (int): Valor do mod, duh.
         """
-        self.state = state
-        self.mod = 2**31 - 1 if mod is None else mod
+        self.state = seed or 2**31 - 1
+        self.mod = mod or 2**31 - 1
 
     def __call__(self) -> int:
         """

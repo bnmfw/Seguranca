@@ -3,6 +3,7 @@ Prime tester base class
 """
 
 from rng.randint import Randint
+from rng.RNG import RNG
 
 report = False
 
@@ -10,14 +11,15 @@ report = False
 class PrimeTester:
     name = "Abstract Tester"
 
-    def __init__(self, generator, max_number: int) -> None:
+    def __init__(self, generator: RNG, max_number: int, seed=None) -> None:
         """
         Args:
-            generator (LFG or Xorshift): RNG engine
+            generator (RNG): RNG engine
             max_number (int): Maior numero checavel
+            seed (int or list[int]): seed, depende da RNG engine
         """
 
-        self.randint = Randint(generator=generator, max_number=max_number)
+        self.randint = Randint(generator=generator, max_number=max_number, seed=seed)
 
     def test(self, value: int) -> bool:
         """

@@ -11,7 +11,7 @@ class LFG:
         self,
         small: int = 24,
         big: int = 55,
-        state_queue: list[int] = None,
+        seed: list[int] = None,
         mod: int = None,
     ) -> None:
         """
@@ -27,9 +27,9 @@ class LFG:
         self.small = small
         self.big = big
         self.mod = 2**31 - 1 if mod is None else mod
-        if state_queue is None:
-            state_queue = [((i + 3) ** i - i * 13) % mod for i in range(big)]
-        self.state_queue = state_queue
+        if seed is None:
+            seed = [((i + 3) ** i - i * 13) % mod for i in range(big)]
+        self.state_queue = seed
 
     def __call__(self) -> int:
         """

@@ -1,5 +1,6 @@
 from utils.modexp import modexp
 from .PrimeTester import PrimeTester
+from rng.RNG import RNG
 
 report = False
 
@@ -7,11 +8,13 @@ report = False
 class Miller(PrimeTester):
     name = "Miller Rabin"
 
-    def __init__(self, generator, max_number: int) -> None:
-        super().__init__(generator=generator, max_number=max_number)
+    def __init__(self, generator: RNG, max_number: int, seed=None) -> None:
+        super().__init__(generator=generator, max_number=max_number, seed=seed)
 
     def test(self, value: int) -> bool:
 
+        if not value % 2:
+            return False
         m = value - 1
         k = 0
         while not m % 2:
