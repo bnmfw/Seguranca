@@ -57,7 +57,7 @@ O estado inicial (2³¹-1) foi escolhido por ser um primo que eu gosto.
 
 Para análise de complexidade é de extrema importância ressaltar que operações bit a bit em python nem sempre são **O(1)**!
 Como python permite o uso de número arbitrariamente grandes, operações bit a bit são **O(1)** apenas para números de 64 bits ou menos.
-Para números acima de 64 bits a complexidade passa a ser **O(n)** onde **n** é **o número de bits usados pelo número**.
+Para números acima de 64 bits a complexidade passa a ser **O(b)**.
 
 Implementação do Algoritmo:
 ```
@@ -68,7 +68,7 @@ self.state %= self.mod
 self.state ^= self.state << 5
 self.state %= self.mod
 ```
-O algoritmo é implementado sem laços, com 9 operações apenas. Assim, a complexidade do algoritmo é **O(1)** para números menores que 64 bits e **O(n)** para o restante.
+O algoritmo é implementado sem laços, com 9 operações apenas. Assim, a complexidade do algoritmo é **O(1)** para números menores que 64 bits e **O(b)** para o restante.
 A Equação `T = bits / 1379 + 1.02` aproxima muito bem o tempo usado para cada caso.
 
 ## Análise de Complexidade Lagged Fibonacci Generator
@@ -96,10 +96,10 @@ self.state_queue.pop(0)
 self.state_queue.append(value)
 ```
 
-As duas primeiras linhas do algoritmo tem complexidade **O(1)** para números com menos de 64 bits e **O(n)** para o restante.
+As duas primeiras linhas do algoritmo tem complexidade **O(1)** para números com menos de 64 bits e **O(b)** para o restante.
 As outras duas linhas são uma deleção e uma inserção em lista que tem complexidade **O(tamanho da lista)**, ou seja **O(1)** pois o tamanho da lista é constante neste caso.
 
-Assim a complexidade do algoritmo como um todo é **O(1)**/**O(n)**.
+Assim a complexidade do algoritmo como um todo é **O(1)** ou **O(b)**.
 
 A Equação `T = bits / 2785 + 0.51` aproxima decentemente o tempo usado para cada caso.
 
