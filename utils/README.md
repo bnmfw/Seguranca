@@ -38,3 +38,6 @@ Esse bloco tem complexidade **O(n³)** para números acima de 64 bits e **O(n)**
 O bloco está dentro de um laço que depende do valor de a e eu aaaacho que faz ser **O(1)** mas não tenho certeza.
 
 Enfim, a complexidade final é a mesma da Exponenciação.
+
+### Crono
+Manejador de contexto pra contar o tempo, nada de mais
