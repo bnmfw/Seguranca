@@ -16,7 +16,7 @@ Para as análises de complexidade no relatório **b** representa o número de bi
 
 Vale lembrar que **b** = **log(n)**. Não estranhe quando você encontar uma função de complexidade logaritmica mas ela estiver descrita como **O(b)**, é porque estou analisando o número de bits.
 
-Como python permite o uso de número arbitrariamente grandes, operações bit a bit e aritiméticas são **O(1)** apenas para números de 64 bits ou menos.
+Como python permite o uso de números arbitrariamente grandes, operações bit a bit e aritiméticas são **O(1)** apenas para números de 64 bits ou menos.
 
 Para números acima de 64 bits o número tem de ser decomposto e processado em partes, portanto a complexidade passa a ser **O(b)** para operações bit a bit e soma, enquanto divisão e multiplicação passam a ser **O(b²)**.
 
