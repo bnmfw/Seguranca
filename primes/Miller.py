@@ -19,7 +19,7 @@ class Miller(PrimeTester):
         k = 0
         while not m % 2:
             k += 1
-            m >>= 2
+            m >>= 1
         if report:
             print(f"{value} = 2^{k}*{m}+1")
 
