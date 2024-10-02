@@ -9,7 +9,7 @@ def jacobi(a: int, n: int):
     r: int
     while a:
         while not a % 2:
-            a //= 2
+            a >>= 1
             r = n % 8
             if r == 3 or r == 5:
                 t = -t
