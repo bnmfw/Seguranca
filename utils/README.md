@@ -17,7 +17,7 @@ exp //= 2
 Este bloco, por sua vez é executado enquanto ```exp > 0``` que, 
 por cair pela metade em toda iteração, faz com que o bloco seja repetido **b** vezes (bit shifta exp toda iteração).
 
-Desta forma a função como um todo tem complexidade **O(b)** até 64 bits e **O(b³)** caso constrário onde n é **o número de bits do expoente! não o valor absoluto!**
+Desta forma a função como um todo tem complexidade **O(b)|O(b³)**.
 
 ### Simbolo de Jacobi
 Eu não entendi como isso funciona mas eu fiz igualzinho o da [wikipédia](https://en.wikipedia.org/wiki/Jacobi_symbol#Implementation_in_C++) e deu certo 😁!
@@ -32,7 +32,7 @@ while not a % 2:
         t = -t
 ```
 
-Esse bloco tem complexidade **O(b³)** para números acima de 64 bits e **O(b)** abaixo.
+Esse bloco tem complexidade **O(b)|O(b³)**.
 
 O bloco está dentro de um laço que depende do valor de a e eu aaaacho que faz ser **O(1)** mas não tenho certeza.
 
