@@ -36,67 +36,44 @@ Para cada número de bits será reportado:
 |4096|76.19|30.72|135.91|522194440706576253345876355358312191289982124523691890192116741641976953985778728424413405967498779170445053357219631418993786719092896803631618043925682638972978488271854999170180795067191859157214035005927973113188159419698856372836167342172293308748403954352901852035642024370059304557233988891799014503343469488440893892973452815095130470299789726716411734651513348221529512507986199933857107770846917779942645743159118957217248367043905936319748237550094520674504208530837546834166925275516486044134775384991808184705966507606898412918594045916828375610659246423184062775112999150206172392431297837246097308511903252956622805412865917690043804311051417135098849101156584508839003337597742539960818209685142687562392007453579567729991395256699805775897135553415567045292136442139895777424891477161767258532611634530697452993846501061481697843891439474220308003706472837459911525285821188577408160690315522951458068463354171428220365223949985950890732881736611925133626529949897998045399734600887312408859224933727829625089164535236559716582775403784110923285873186648442456409760158728501220463308455437074192539205964902261490928669488824051563042951500651206733914027728710345550252614403329931891765775615422669382736962432553|
 
 ## Análise de Complexidade Miller Rabin:
-O Algoritmo foi implementado de acordo com o [material apresentado em sala de aula](https://presencial.moodle.ufsc.br/pluginfile.php/625534/mod_resource/content/5/Matem%C3%A1tica%20para%20Criptografia%20e%20RSA.pdf)
+To cansado de escrever por extenso. Vou usar a notação: Complexidade para inteiros <= 64 bits|Complexidade para inteiros > 64 bits
 
-O 
+O Algoritmo foi implementado de acordo com o [material apresentado em sala de aula](https://presencial.moodle.ufsc.br/pluginfile.php/625534/mod_resource/content/5/Matem%C3%A1tica%20para%20Criptografia%20e%20RSA.pdf).
 
-## Alterar
+<Explicação de pq funciona>
 
-## Análise de Miller Rabin:
-O Algoritmo foi implementado de acordo com o exemplo de [implementação da wikipédia](https://pt.wikipedia.org/wiki/Xorshift#Exemplo_de_implementa%C3%A7%C3%A3o).
-
-O Algoritmo parte de um estado inicial, e realiza operações de xor com o próprio estado bitshiftado.
-
-A operação de bitshift pode ser entendida como elevar o estado a uma potencia de 2 (mesmo que fracionária), o que não parece muito _aleatório_, 
-mas a operação de xor garante que essencialmente ruido sera introduzido ao estado.
-
-O estado inicial (2³¹-1) foi escolhido por ser um primo que eu gosto. 
-
-Para análise de complexidade é de extrema importância ressaltar que operações bit a bit em python nem sempre são **O(1)**!
-Como python permite o uso de número arbitrariamente grandes, operações bit a bit são **O(1)** apenas para números de 64 bits ou menos.
-Para números acima de 64 bits a complexidade passa a ser **O(n)** onde **n** é **o número de bits usados pelo número**.
-
-Implementação do Algoritmo:
+O algoritmo é dividido em 4 partes. Primeiro separa-se a parte impar do número:
+#### 1
 ```
-self.state ^= self.state << 13
-self.state %= self.mod
-self.state ^= self.state >> 17
-self.state %= self.mod
-self.state ^= self.state << 5
-self.state %= self.mod
+while not m % 2:
+  k += 1
+  m >>= 1
 ```
-O algoritmo é implementado sem laços, com 9 operações apenas. Assim, a complexidade do algoritmo é **O(1)** para números menores que 64 bits e **O(n)** para o restante.
-A Equação `T = bits / 1379 + 1.02` aproxima muito bem o tempo usado para cada caso.
-
-## Análise de Complexidade Lagged Fibonacci Generator
-O Algoritmo foi implementado de acordo com a [explicação da wikipédia](https://en.wikipedia.org/wiki/Lagged_Fibonacci_generator).
-
-O Algoritmo possui internamente uma vetor de **k** posições ja inicializado com número arbitrários.
-
-A cada iteração, o último elemento do vetor (**i**) é operado com um operador binário qualquer com outro elemento **j** da lista.
-
-O novo valor é inserido no inicio do vetor, e o último apagado, assim mantendo o tamanho do vetor e movendo os outros elementos como se numa fila.
-
-Para essa implementação os valores de **i** e **j** foram 55 e 24 pois foi isso que o ChatGPT recomendou.
-
-O vetor é inicializado como `[((i + 3) ** i - i * 13) % mod for i in range(size)]` pois isso me parece bem aleatório.
-
-A operação binária escolhida foi a soma.
-
-A discussão de complexidade para operações bit a bit se aplica para operação de soma.
-
-Implementação do Algoritmo:
+O laço é executado **O(b)** vezes, uma vez que a cada iteração m é bitshiftado uma vez, porém a operação de bitshift em si tem custo **O(1)** para inteiros pequenos e **O(b)** para inteiros com mais de 64 bits, fazendo o bloco como um todo ter complexidade **O(b)|O(b²)**.
+#### 2
 ```
-value = self.state_queue[-self.small] + self.state_queue[-self.big]
-value %= self.mod
-self.state_queue.pop(0)
-self.state_queue.append(value)
+a = self.randint(1, value - 1)
 ```
+A geração de número pseudoaleatório para ambos algoritmos tem complexidade **O(1)|O(b)** como [visto anteriormente](https://github.com/bnmfw/Seguranca/blob/main/rng/README.md).
+#### 3 
+```
+if modexp(a, m, value) == 1:
+  return True
+```
+Exponenciação modular rápida tem complexidade **O(b)|O(b³)** como [visto anteriorment](https://github.com/bnmfw/Seguranca/blob/main/utils/README.md).
+#### 4
+```
+for i in range(k):
+  if modexp(a, 2**i * m, value) == value - 1:
+    return True
+```
+De acordo com o passo **1**, **k** tem tamanho **b**. A exponenciação tem complexidade **O(b)|O(b³)**. Assim, o bloco 4 tem complexidade **O(b²)|O(b⁴)**.
+#### Total
+A complexidade final do Miller-Rabin, é portanto **O(b²)|O(b⁴)**.
 
-As duas primeiras linhas do algoritmo tem complexidade **O(1)** para números com menos de 64 bits e **O(n)** para o restante.
-As outras duas linhas são uma deleção e uma inserção em lista que tem complexidade **O(tamanho da lista)**, ou seja **O(1)** pois o tamanho da lista é constante neste caso.
+## Análise de Complexidade Solovay–Strassen:
 
-Assim a complexidade do algoritmo como um todo é **O(1)**/**O(n)**.
+<Explicação>
 
-A Equação `T = bits / 2785 + 0.51` aproxima decentemente o tempo usado para cada caso.
-
+O grosso do algoritmo é divido em 3 blocos.
+#### 1
