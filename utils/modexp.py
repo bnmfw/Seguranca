@@ -11,6 +11,6 @@ def modexp(base, exp, mod):
             result = (result * base) % mod
         
         base = (base * base) % mod
-        exp //= 2
+        exp >>= 1
     
     return result
