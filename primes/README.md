@@ -39,7 +39,7 @@ Para cada número de bits será reportado:
 
 ## Alterar
 
-## Análise de Complexidade Xorshift
+## Análise de Miller Rabin:
 O Algoritmo foi implementado de acordo com o exemplo de [implementação da wikipédia](https://pt.wikipedia.org/wiki/Xorshift#Exemplo_de_implementa%C3%A7%C3%A3o).
 
 O Algoritmo parte de um estado inicial, e realiza operações de xor com o próprio estado bitshiftado.
