@@ -13,6 +13,9 @@ class Miller(PrimeTester):
 
     def test(self, value: int) -> bool:
 
+        if value == 2:
+            return True
+
         if not value % 2:
             return False
         m = value - 1
@@ -20,21 +23,18 @@ class Miller(PrimeTester):
         while not m % 2:
             k += 1
             m >>= 1
-        if report:
-            print(f"{value} = 2^{k}*{m}+1")
 
         a = self.randint(1, value - 1)
 
-        if report:
-            print(f"{a=}\t{m=}\t{value=}\t{modexp(a, m, value)=}")
-        if modexp(a, m, value) == 1:
+        checked = modexp(a, m, value)
+        if checked == 1:
             return True
 
         for i in range(k):
-            if report:
-                print(f"\t{i=}\t{2**i*m=}\t{modexp(a, 2 ** i * m, value)=}")
-            if modexp(a, 2**i * m, value) == value - 1:
+            if checked == value - 1:
                 return True
+            checked *= checked
+            checked %= value
         return False
 
 

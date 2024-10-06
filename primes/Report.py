@@ -40,9 +40,9 @@ def relatorio(
             is_prime_1, is_prime_2 = False, False
 
             under = True
-            while not (is_prime_2):
+            while not (is_prime_2 and is_prime_1):
 
-                # is_prime_1 = c1.bulk_test(rand, tests)
+                is_prime_1 = c1.bulk_test(rand, tests)
                 is_prime_2 = c2.bulk_test(rand, tests)
 
                 rand += 2 if under else 4
