@@ -13,11 +13,9 @@ def relatorio(
     engine: RNG,
     bits: list[int],
     tests: int = 1,
-    samples: int = 10**6,
 ):
     print(f"{'='*70}")
-    print(f"\nRelatorio de Qualidade do {checker1.name} vs {checker2.name}:")
-    print(f"\nAmostras={samples:.0e}")
+    print(f"\Geracao de primos com acordo do {checker1.name} e {checker2.name}:")
 
     for bit in bits:
         print(f"\n[BITS={bit}]")
@@ -26,8 +24,6 @@ def relatorio(
         c1: PrimeTester = checker1(engine, 2**bit, seed=seed)
         c2: PrimeTester = checker2(engine, 2**bit, seed=seed)
         rng: Randint = Randint(engine, max_number=2**bit, seed=seed)
-
-        disagree: list = []
 
         # Primos grandes so podem ser 6k-1 ou 6k+1, nao vale a pena ir de 2 em 2, eu vou de 6 em 6 e olho o antecessor e sucessor
 
