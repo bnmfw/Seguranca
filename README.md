@@ -24,7 +24,7 @@ Durante as análises de complexidade este conhecimento será levado em questão.
 
 Operação >> é **O(1)|O(b)**
 
-Operação // é **O(1)|O(b²)**
+Operação % é **O(1)|O(b²)** normalmente, mas **O(1)|O(b²)** para potencias de 2.
 
 ## Dificuldades encontradas:
 
