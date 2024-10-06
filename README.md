@@ -25,3 +25,13 @@ Durante as análises de complexidade este conhecimento será levado em questão.
 Operação >> é **O(1)|O(b)**
 
 Operação // é **O(1)|O(b²)**
+
+## Dificuldades encontradas:
+
+O python odeia trabalhar com floats muito grandes, tiver que mudar algumas partes do códido (em especial a função randint) pra trabalhar somente com inteiros.
+
+Implementei exponenciação rápida modular de otário, a função `pow()` do python faz a mesmissa coisa com os mesmos parâmetros. Pelo menos eu posso falar com certeza da complexidade dela e não tive que ler documentação.
+
+O simbolo jacobiano é esquisito e misterioso, eu entendi o que ele faz mas não exatamente _como_. Encontrar um exemplo de implementação dele também não foi direto por que eu nem sabia se tava certo, fiquei gerando varios asserts com ele pra ver se tinha o comportamento esperado e comparando com um online. Tive certeza que estava correto só quando testei o Solovay inteiro e vi que ele estava com o comportamento correto.
+
+Sinceramente, a maioria dos algoritmos foram feitos assim. Podem questionar "Por que você escolheu esses parametros?" ou "Como tem certeza que o algoritmo está correto?", e a resposta é "empiricamente". Os geradores de números pseudo aleatórios foram testados para ver se estavam gerando distribuição uniformes e estavam, isso é prova o bastante que estão corretos. Os testes de primalidade estão coerentes para os primeiros 10 mil primos e tem alta concordância para números altos como visto no teste da disputa. 
