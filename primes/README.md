@@ -9,6 +9,10 @@ Para comparar os geradores rode:
 ```
 make dispute
 ```
+Para a geração de números primos enomes (o que o relatorio realmente pede) rode:
+```
+make primes
+```
 Para o experimento de teste de primalidade foi gerado um número aleatório inteiro no intervalo [2^(bit-1) - 2^(bit)], ou seja ele é sempre um numero que utiliza todos os bits designados.
 
 Para cada número de bits o mesmo experimento foi realizado usando o `Miller-Rabin`, o `Solovay-Strassem` e o acordo de ambos para decidir se o número era de fato primo. 
