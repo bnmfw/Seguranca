@@ -9,7 +9,7 @@ class Primes:
     def __init__(self) -> None:
         self.primes = [2, 3, 5, 7, 11, 13]
 
-    def __call__(self, value) -> list:
+    def __call__(self, value: int) -> list:
         if value < self.primes[-1]:
             return self.primes[: bisect_left(self.primes, value)]
 
