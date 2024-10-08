@@ -78,7 +78,7 @@ O laço é executado **O(b)** vezes, uma vez que a cada iteração m é bitshift
 ```
 a = self.randint(1, value - 1)
 ```
-O Randint tem complexidade **O(1)|O(b)**.
+O Randint tem complexidade **O(1)|O(b²)**.
 #### 3 
 ```
 checked = modexp(a, m, value) 
@@ -122,7 +122,7 @@ O grosso do algoritmo é divido em 3 blocos.
 ```
 a = self.randint(2, value - 1)
 ```
-O Randint tem complexidade **O(1)|O(b)**.
+O Randint tem complexidade **O(1)|O(b²)**.
 #### 2
 ```
 j = jacobi(a, value)
