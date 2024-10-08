@@ -64,6 +64,8 @@ Tem-se então, que se para qualquer primo, com `1 < a < p-1` é verdade que:
 - `a^m ≡ 1 (mod p)`.
 - `a^(2^i*m) ≡ -1 (mod p)` para um `i` entre `0` e `k-1`.
 
+O objetivo do algoritmo é, portanto, conferir se tais propriedades se mantém verdadeiras para um número `p`.
+
 O algoritmo gera um `a` aleatório e realiza todos os testes, caso algum deles seja verdadeiro, o número provavelmente é primo, se nenhuma é verdadeira, o número é com certeza composto.
 
 O algoritmo é dividido em 4 partes. Primeiro separa-se a parte impar do número:
@@ -106,9 +108,11 @@ A complexidade final do Miller-Rabin, é portanto **O(b)|O(b³)**.
 
 ## Análise de Complexidade Solovay–Strassen:
 
-Assim como o teste de Miller Rabin, o teste de [Solovay-Strassen](https://en.wikipedia.org/wiki/Solovay%E2%80%93Strassen_primality_test) também parte de uma propriedade de números primos para realizar o teste. Dentre as milhares de coisas que Euler provou, uma é que:
+Assim como o teste de Miller Rabin, o teste de [Solovay-Strassen](https://en.wikipedia.org/wiki/Solovay%E2%80%93Strassen_primality_test) também parte de uma propriedade de números primos para realizar o teste. Dentre as milhares de coisas que [Euler provou](https://en.wikipedia.org/wiki/Solovay%E2%80%93Strassen_primality_test#Concepts), uma é que:
 
 `a^((p-1)/2) ≡ jacobi(a,p) (mod p)` para todos os números primos, onde `a` é um inteiro qualquer e `jacobi()` é o símbolo de jacobi. 
+
+Portanto se um número qualquer `p` mantém essa igualdade verdadeira, ele provavelmente é primo.
 
 O [simbolo de jacobi](https://en.wikipedia.org/wiki/Jacobi_symbol) por sua ver é um operador ternário, que retorna: 
 - `0` para números multiplos de `p`.
