@@ -18,7 +18,7 @@ Vale lembrar que **b** = **log(n)**. Não estranhe quando você encontar uma fun
 
 Como python permite o uso de números arbitrariamente grandes, operações bit a bit e aritiméticas são **O(1)** apenas para números de 64 bits ou menos.
 
-Para números acima de 64 bits o número tem de ser decomposto e processado em partes, portanto a complexidade passa a ser **O(b)** para operações bit a bit e soma, enquanto divisão e multiplicação e resto passam a ser **O(b²)**, exceto quando estas útltimas 3 operações são feitas utilizando 2 ou uma de suas potencias como operador, onde a operação pode ser subsitituida por bitshifts para multiplicação e divisão e descartar a parte superior do número para resto, nestes casos a complexidade passa a ser **O(b)**.
+Para números acima de 64 bits o número tem de ser decomposto e processado em partes, portanto a complexidade passa a ser **O(b)** para operações bit a bit e soma, enquanto divisão e multiplicação e resto passam a ser **O(b²)**, exceto quando estas útltimas 3 operações são feitas utilizando 2 ou uma de suas potencias como operador, onde a operação pode ser subsitituida por bitshifts para multiplicação e divisão e & logico para resto, nestes casos a complexidade passa a ser **O(b)**.
 
 Durante as análises de complexidade este conhecimento será levado em questão. A notação **<Complexidade para 64 bits ou menos>|<Complexidade para maiores\>** será usada ao longo das análises. Exemplo:
 
